@@ -19,17 +19,16 @@ function BannerHome() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const interval = setInterval(() => {
-        if (currentImage < bannerData.length - 1) {
-          handleNext()
-        }else{
-            setCurrentImage(0)
-        }
+      if (currentImage < bannerData.length - 1) {
+        handleNext();
+      } else {
+        setCurrentImage(0);
+      }
     }, 5000);
-    return()=>clearInterval(interval)
-
-  },[bannerData,imageUrl])
+    return () => clearInterval(interval);
+  }, [bannerData, imageUrl]);
 
   return (
     <section className="w-full h-full">
