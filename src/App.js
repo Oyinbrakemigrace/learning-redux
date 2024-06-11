@@ -6,7 +6,10 @@ import Footer from "./components/Footer";
 import MobileNav from "./components/MobileNav";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setBannerData, setImageUrl } from "./features/gboxSlice";
+import {
+  setBannerData,
+  setImageUrl,
+} from "./features/gboxSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +31,8 @@ function App() {
       console.log("error", error);
     }
   };
+
+
 
   useEffect(() => {
     fetchTrendingData();
