@@ -33,9 +33,10 @@ function BannerHome() {
   return (
     <section className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
-        {bannerData.map((data) => {
+        {bannerData.map((data, index) => {
           return (
             <div
+              key={data.id}
               className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all"
               style={{ transform: `translateX(-${currentImage * 100}%)` }}
             >
@@ -74,7 +75,7 @@ function BannerHome() {
                     <span>|</span>
                     <p>Views : {Number(data?.popularity.toFixed(0))}</p>
                   </div>
-                  <button className="bg-white font-bold px-4 py-2 mt-4 rounded text-black hover:bg-gradient-to-l from-red-500 to-orange-500 shadow-md transition-all hover:scale-105">
+                  <button className="bg-white font-bold px-4 py-2 my-5 mt-4 rounded text-black hover:bg-gradient-to-l from-red-500 to-orange-500 shadow-md transition-all hover:scale-105">
                     Play Now
                   </button>
                 </div>

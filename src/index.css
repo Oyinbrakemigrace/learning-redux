@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-
+*{
+    box-sizing: border-box;
+}
 body{
     font-family: "Space Grotesk", 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    @apply bg-neutral-900 text-neutral-300
+    @apply bg-neutral-900 text-neutral-300 p-0 m-0;
+    scroll-behavior: smooth;
 }
