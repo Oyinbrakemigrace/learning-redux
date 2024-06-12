@@ -19,16 +19,25 @@ function BannerHome() {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentImage < bannerData.length - 1) {
-        handleNext();
-      } else {
-        setCurrentImage(0);
-      }
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [bannerData, imageUrl]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (currentImage < bannerData.length - 1) {
+  //       handleNext();
+  //     } else {
+  //       setCurrentImage(0);
+  //     }
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [bannerData, imageUrl]);
+
+   useEffect(() => {
+     const interval = setInterval(() => {
+       setCurrentImage((prevImage) => (prevImage + 1) % bannerData.length);
+     }, 5000);
+
+     return () => clearInterval(interval);
+   }, [bannerData]);
+  //console.log(bannerData);
 
   return (
     <section className="w-full h-full">

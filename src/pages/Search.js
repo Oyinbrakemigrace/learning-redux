@@ -18,7 +18,7 @@ function Search() {
           page: pageNum,
         },
       });
-      console.log(response.data.results);
+      //console.log(response.data.results);
       setData((prev) => {
         return [...prev, ...response.data.results];
       });
@@ -68,7 +68,7 @@ function Search() {
             return (
               <Card
                 data={searchData}
-                key={searchData.id + "searchData"}
+                key={searchData.id + "searchData" + index}
                 mediaType={searchData.media_type}
               />
             );
