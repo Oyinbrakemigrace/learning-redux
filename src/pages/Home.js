@@ -19,10 +19,26 @@ function Home() {
         heading={"Trending Shows"}
         isTrending={true}
       />
-      <HorizontalScroll data={nowPlayingMovie} heading={"Now Playing"} />
-      <HorizontalScroll data={topRatedData} heading={"Top Rated"} />
-      <HorizontalScroll data={popularShowData} heading={"Popular TV Show"} />
-      <HorizontalScroll data={onAirData} heading={"On The Air"} />
+      <HorizontalScroll
+        data={nowPlayingMovie}
+        heading={"Now Playing"}
+        mediaType={"movie"}
+      />
+      <HorizontalScroll
+        data={topRatedData}
+        heading={"Top Rated"}
+        mediaType={"movie"}
+      />
+      <HorizontalScroll
+        data={popularShowData}
+        heading={"Popular TV Show"}
+        mediaType={"tv"}
+      />
+      <HorizontalScroll
+        data={onAirData}
+        heading={"On The Air"}
+        mediaType={"tv"}
+      />
     </div>
   );
 }

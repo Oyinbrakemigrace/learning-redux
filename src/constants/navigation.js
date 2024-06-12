@@ -10,7 +10,7 @@ export const navItems = [
   },
   {
     label: "Movies",
-    href: "movies",
+    href: "movie",
     icon: <MdMovieCreation size={26} />,
   },
 ];

@@ -3,15 +3,24 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-function Card({ data, isTrending, index }) {
+function Card({ data, isTrending, index, mediaType }) {
   //console.log('data', data);
   const imageUrl = useSelector((state) => state.gboxData.imageUrl);
+  const typeOfMedia = data.media_type ?? mediaType
   return (
     <Link
-      to={"/" + data.media_type + "/" + data.id}
-      className="min-w-[230px] max-w-[230px] w-full h-80 overflow-hidden rounded relative"
+      to={"/" + typeOfMedia + "/" + data.id}
+      className="min-w-[230px] max-w-[230px] w-full h-80 overflow-hidden rounded block relative hover:scale-105 transition-all"
     >
-      <img src={imageUrl + data.poster_path} alt="posterImage" />
+      {
+        data?.poster_path ? (
+          <img src={imageUrl + data?.poster_path} alt="posterImage" />
+        ):(
+          <div className="bg-neutral-800 h-full w-full flex justify-center items-center">
+            No Image Found
+          </div>
+        )
+      }
       <div className="absolute top-4 ">
         {isTrending && (
           <div className="px-4 bg-black/60 overflow-hidden backdrop-blur-3xl rounded-r-full">
@@ -26,7 +35,7 @@ function Card({ data, isTrending, index }) {
         <div className="text-xs text-neutral-400 flex justify-between items-center">
           <p>{moment(data?.release_date).format("MMMM Do YYYY")}</p>
           <p className="bg-black rounded-full text-xs text-white px-1">
-            Rating {Number(data.vote_average).toFixed(1)}
+            Rating {Number(data?.vote_average).toFixed(1)}
           </p>
         </div>
       </div>
