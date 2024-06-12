@@ -55,7 +55,7 @@ function Header() {
               onChange={(e) => setSearchInput(e.target.value)}
               value={searchInput}
             />
-            <button>
+            <button className="hidden lg:block">
               <FaSearch size={26} />
             </button>
           </form>
