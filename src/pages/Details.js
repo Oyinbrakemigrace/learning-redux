@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchDetails from "../hooks/useFetchDetails";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 function Details() {
   const params = useParams();
@@ -12,10 +13,8 @@ function Details() {
     `/${params?.explore}/${params.id}/credits`
   );
   const imageUrl = useSelector((state) => state.gboxData.imageUrl);
-  console.log('data', movieDetails);
-  const duration = (Number(movieDetails?.runtime) / 60)
-    .toFixed(1)
-    .split(".")
+  //console.log('data', movieDetails);
+  const duration = (movieDetails?.runtime / 60).toFixed(1).split(".");
 
   return (
     <div>
@@ -34,18 +33,46 @@ function Details() {
           <img
             src={imageUrl + movieDetails?.poster_path}
             alt="backDrop"
-            className="h-80 object-cover w-60"
+            className="h-60 object-cover w-60"
           />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-2xl lg:text-4xl font-bold text-white">
             {movieDetails?.title || movieDetails?.name}
           </h2>
           <p className="text-neutral-400">{movieDetails?.tagline}</p>
           <p>Rating: {Number(movieDetails?.vote_average).toFixed(1)}</p>
           <p>Views: {Number(movieDetails?.vote_count)}</p>
-          <p>Duration: {duration[0]}h {duration[1]}m</p>
+          <p>
+            Duration: {duration[0]}h {duration[1]}m
+          </p>
+
+          <div>
+            <h3 className="text-xl font-bold text-white mb-1 mt-5">
+              Overview:
+            </h3>
+            <p>{movieDetails?.overview}</p>
+            <div className="flex items-center gap-3 my-3 text-center">
+              <p>Status : {movieDetails?.status}</p>
+              <span>|</span>
+              <p>
+                Release Date:{" "}
+                {moment(movieDetails?.release_date).format("MMMM Do YYYY")}
+              </p>
+              <span>|</span>
+              <p>Revenue: {Number(movieDetails?.revenue)}</p>
+            </div>
+          </div>
+          <div>
+            <p>
+              <span className="text-white">Director</span>:{" "}
+              {castData?.crew[0]?.name}
+            </p>
+          </div>
         </div>
+      </div>
+      <div className="container mx-auto px-3">
+        <h2 className="lg:text-2xl text-xl font-bold my-3">Star Cast:</h2>
       </div>
     </div>
   );
