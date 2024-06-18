@@ -1,14 +1,15 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import Card from '../components/Card';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Card from "../components/Card";
 
 function Search() {
-  const location = useLocation()
-  const[data,setData]=useState([])
-  const[pageNum, setPageNum]=useState(1)
-  const navigate = useNavigate()
+  const location = useLocation();
+  const [data, setData] = useState([]);
+  const [pageNum, setPageNum] = useState(1);
+  const navigate = useNavigate();
 
+  const query = location?.search?.slice(3);
 
   const handleFetchData = async () => {
     try {
@@ -28,26 +29,25 @@ function Search() {
     }
   };
 
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        setPageNum((prev) => prev + 1);
-      }
-    };
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      setPageNum((prev) => prev + 1);
+    }
+  };
 
-      useEffect(() => {
-        handleFetchData();
-      }, [pageNum]);
+  useEffect(() => {
+    handleFetchData();
+  }, [pageNum]);
 
-  useEffect(()=>{
-    setPageNum(1)
-    setData([])
-    handleFetchData()
-  },[location.search])
+  useEffect(() => {
+    setPageNum(1);
+    setData([]);
+    handleFetchData();
+  }, [location.search]);
 
-    useEffect(() => {
-      window.addEventListener("scroll", handleScroll);
-    }, []);
-
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="py-16">
@@ -57,6 +57,7 @@ function Search() {
           placeholder="Search here..."
           onChange={(e) => navigate(`/search?q=${e.target.value}`)}
           className="px-4 py-2 text-lg w-full bg-white rounded-full text-neutral-900"
+          value={query?.split("%20")?.join("")}
         />
       </div>
       <div className="container mx-auto">
@@ -79,4 +80,4 @@ function Search() {
   );
 }
 
-export default Search
+export default Search;

@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import useFetchDetails from "../hooks/useFetchDetails";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import useFetch from '../hooks/useFetch'
+import HorizontalScroll from '../components/HorizontalScroll'
 
 function Details() {
   const params = useParams();
@@ -15,6 +17,13 @@ function Details() {
   const imageUrl = useSelector((state) => state.gboxData.imageUrl);
   //console.log('data', movieDetails);
   const duration = (movieDetails?.runtime / 60).toFixed(1).split(".");
+
+  const { data: similarData } = useFetch(
+    `/${params?.explore}/${params.id}/similar`
+  );
+  const { data: recommendedData } = useFetch(
+    `/${params?.explore}/${params.id}/recommendations`
+  );
 
   return (
     <div>
@@ -65,14 +74,48 @@ function Details() {
           </div>
           <div>
             <p>
-              <span className="text-white">Director</span>:{" "}
+              <span className="text-white">Director:</span>:{" "}
               {castData?.crew[0]?.name}
             </p>
           </div>
+          <div className="my-3">
+            <h3 className="font-bold text-lg">Casts:</h3>
+            <div className="grid grid-cols-[repeat(auto-fit,96px)] gap-5">
+              {castData?.cast
+                ?.filter((el) => el?.profile_path)
+                .map((starCast, index) => {
+                  return (
+                    <div>
+                      <div>
+                        <img
+                          src={imageUrl + starCast?.profile_path}
+                          alt=""
+                          className="w-24 h-24 rounded-full object-cover"
+                        />
+                      </div>
+                      <p className="font-bold text-center text-sm">
+                        {starCast?.name}
+                      </p>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
         </div>
       </div>
-      <div className="container mx-auto px-3">
-        <h2 className="lg:text-2xl text-xl font-bold my-3">Star Cast:</h2>
+      <div>
+        <HorizontalScroll
+          data={similarData}
+          heading={`Similar ${params?.explore==='movie' ? 'Movies' : 'TV Shows'}`}
+          mediaType={params?.explore}
+        />
+      </div>
+      <div>
+        <HorizontalScroll
+          data={recommendedData}
+          heading={`Recommended ${params?.explore==='movie' ? 'Movies' : 'TV Shows'}`}
+          mediaType={params?.explore}
+        />
       </div>
     </div>
   );
