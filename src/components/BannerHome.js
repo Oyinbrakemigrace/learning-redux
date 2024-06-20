@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function BannerHome() {
   const bannerData = useSelector((state) => state.gboxData.bannerData);
@@ -74,9 +75,11 @@ function BannerHome() {
                     <span>|</span>
                     <p>Views : {Number(data?.popularity.toFixed(0))}</p>
                   </div>
-                  <button className="bg-white font-bold px-4 py-2 my-5 mt-4 rounded text-black hover:bg-gradient-to-l from-red-500 to-orange-500 shadow-md transition-all hover:scale-105">
-                    Play Now
-                  </button>
+                  <Link to={"/" + data.media_type + "/" + data.id}>
+                    <button className="bg-white font-bold px-4 py-2 my-5 mt-4 rounded text-black hover:bg-gradient-to-l from-red-500 to-orange-500 shadow-md transition-all hover:scale-105">
+                      View
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
