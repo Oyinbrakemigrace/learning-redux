@@ -4,22 +4,18 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { navItems } from "../constants/navigation";
 
-
-
 function Header() {
   const location = useLocation();
-  const removeSpace = location?.search?.slice(3).split('%20').join(' ')
+  const removeSpace = location?.search?.slice(3).split("%20").join(" ");
   const [searchInput, setSearchInput] = useState(removeSpace);
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    if(searchInput){
+    if (searchInput) {
       navigate(`/search?q=${searchInput}`);
     }
   }, [searchInput]);
-
 
   return (
     <header className="fixed top-0 w-full h-16 bg-black bg-opacity-50 z-40">
@@ -59,9 +55,9 @@ function Header() {
               <FaSearch size={26} />
             </button>
           </form>
-          <div className="cursor-pointer active:scale-50 transition-all">
+          {/* <div className="cursor-pointer active:scale-50 transition-all">
             <FaUser size={26} />
-          </div>
+          </div> */}
         </div>
       </div>
     </header>

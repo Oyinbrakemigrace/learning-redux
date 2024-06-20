@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetchDetails from "../hooks/useFetchDetails";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import useFetch from '../hooks/useFetch'
-import HorizontalScroll from '../components/HorizontalScroll'
+import useFetch from "../hooks/useFetch";
+import HorizontalScroll from "../components/HorizontalScroll";
+import VideoPlay from "../components/VideoPlay";
 
 function Details() {
   const params = useParams();
@@ -24,6 +25,13 @@ function Details() {
   const { data: recommendedData } = useFetch(
     `/${params?.explore}/${params.id}/recommendations`
   );
+  const [playVideo, setPlayVideo] = useState(false);
+  const [playVideoID, setPlayVideoID] = useState("");
+
+  const handlePlayVideo=(data)=>{
+    setPlayVideoID(data)
+    setPlayVideo(true)
+  }
 
   return (
     <div>
@@ -38,12 +46,18 @@ function Details() {
         <div className="absolute bg-gradient-to-t from-neutral-900/90 to-transparent w-full h-full top-0"></div>
       </div>
       <div className="container mx-auto px-3 py-16 lg:py-0 flex flex-col lg:flex-row gap-5 lg:gap-10 ">
-        <div className="lg:-mt-28 lg:mx-0 relative mx-auto w-fit">
+        <div className="lg:-mt-28 lg:mx-0 relative mx-auto w-fit min-w-60 ">
           <img
             src={imageUrl + movieDetails?.poster_path}
             alt="backDrop"
-            className="h-60 object-cover w-60"
+            className="h-80 object-cover w-60 rounded"
           />
+          <button
+            onClick={() => handlePlayVideo(movieDetails)}
+            className="mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-gradient-to-l from-red-500 to-orange-500 hover:scale-105 transition-all"
+          >
+            Play Now
+          </button>
         </div>
         <div>
           <h2 className="text-2xl lg:text-4xl font-bold text-white">
@@ -106,17 +120,28 @@ function Details() {
       <div>
         <HorizontalScroll
           data={similarData}
-          heading={`Similar ${params?.explore==='movie' ? 'Movies' : 'TV Shows'}`}
+          heading={`Similar ${
+            params?.explore === "movie" ? "Movies" : "TV Shows"
+          }`}
           mediaType={params?.explore}
         />
       </div>
       <div>
         <HorizontalScroll
           data={recommendedData}
-          heading={`Recommended ${params?.explore==='movie' ? 'Movies' : 'TV Shows'}`}
+          heading={`Recommended ${
+            params?.explore === "movie" ? "Movies" : "TV Shows"
+          }`}
           mediaType={params?.explore}
         />
       </div>
+      {playVideo && (
+        <VideoPlay
+          data={playVideoID}
+          close={() => setPlayVideo(false)}
+          media_type={params?.explore}
+        />
+      )}
     </div>
   );
 }
