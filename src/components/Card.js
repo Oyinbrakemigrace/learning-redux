@@ -10,7 +10,7 @@ function Card({ data, isTrending, index, mediaType }) {
   return (
     <Link
       to={"/" + typeOfMedia + "/" + data.id}
-      className="min-w-[230px] max-w-[230px] w-full h-80 overflow-hidden rounded block relative hover:scale-105 transition-all"
+      className="min-w-[230px] max-w-[230px] w-full h-80 overflow-hidden rounded block relative hover:scale-105 transition-all "
     >
       {
         data?.poster_path ? (
@@ -23,18 +23,18 @@ function Card({ data, isTrending, index, mediaType }) {
       }
       <div className="absolute top-4 ">
         {isTrending && (
-          <div className="px-4 bg-black/60 overflow-hidden backdrop-blur-3xl rounded-r-full">
+          <div className="px-4 bg-deep-navy/55 overflow-hidden backdrop-blur-3xl rounded-r-full">
             #{index} Trending
           </div>
         )}
       </div>
-      <div className="absolute bottom-0 h-16  backdrop-blur-3xl w-full bg-black/60 p-2">
+      <div className="absolute bottom-0 h-16  backdrop-blur-3xl w-full bg-gold/85 text-deep-navy p-2">
         <h2 className="text-ellipsis line-clamp-1 text-lg font-semibold">
           {data?.title || data?.name}
         </h2>
-        <div className="text-xs text-neutral-400 flex justify-between items-center">
+        <div className="text-xs text-deep-navy flex justify-between items-center">
           <p>{moment(data?.release_date).format("MMMM Do YYYY")}</p>
-          <p className="bg-black rounded-full text-xs text-white px-1">
+          <p className="bg-deep-navy rounded-full text-xs text-white px-1">
             Rating {Number(data?.vote_average).toFixed(1)}
           </p>
         </div>
