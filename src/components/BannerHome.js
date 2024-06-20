@@ -76,7 +76,7 @@ function BannerHome() {
                     <p>Views : {Number(data?.popularity.toFixed(0))}</p>
                   </div>
                   <Link to={"/" + data.media_type + "/" + data.id}>
-                    <button className="bg-white font-bold px-4 py-2 my-5 mt-4 rounded text-black hover:bg-gradient-to-l from-red-500 to-orange-500 shadow-md transition-all hover:scale-105">
+                    <button className="bg-white font-bold px-4 py-2 my-5 mt-4 rounded text-black hover:bg-gold shadow-md transition-all hover:scale-105">
                       View
                     </button>
                   </Link>
