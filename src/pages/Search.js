@@ -57,7 +57,7 @@ function Search() {
           placeholder="Search here..."
           onChange={(e) => navigate(`/search?q=${e.target.value}`)}
           className="px-4 py-2 text-lg w-full bg-white rounded-full text-neutral-900"
-          value={query?.split("%20")?.join("")}
+          value={query?.split("%20")?.join(" ")}
         />
       </div>
       <div className="container mx-auto">
