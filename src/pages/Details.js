@@ -9,9 +9,11 @@ import VideoPlay from "../components/VideoPlay";
 
 function Details() {
   const params = useParams();
+  
   const { data: movieDetails } = useFetchDetails(
     `/${params?.explore}/${params?.id}`
   );
+  //console.log("params", movieDetails);
   const { data: castData } = useFetchDetails(
     `/${params?.explore}/${params.id}/credits`
   );
@@ -56,19 +58,21 @@ function Details() {
             onClick={() => handlePlayVideo(movieDetails)}
             className="mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-gold hover:scale-105 transition-all"
           >
-            Play Now
+            Play Trailer
           </button>
         </div>
         <div>
           <h2 className="text-2xl lg:text-4xl font-bold text-white">
             {movieDetails?.title || movieDetails?.name}
           </h2>
-          <p className="text-neutral-400">{movieDetails?.tagline}</p>
+          <p className="text-neutral-400 italic">{movieDetails?.tagline}</p>
           <p>Rating: {Number(movieDetails?.vote_average).toFixed(1)}</p>
           <p>Views: {Number(movieDetails?.vote_count)}</p>
-          <p>
-            Duration: {duration[0]}h {duration[1]}m
-          </p>
+          {params?.explore === "movie" && (
+            <p>
+              Duration: {duration[0]}h {duration[1]}m
+            </p>
+          )}
 
           <div>
             <h3 className="text-xl font-bold text-white mb-1 mt-5">
@@ -82,13 +86,17 @@ function Details() {
                 Release Date:{" "}
                 {moment(movieDetails?.release_date).format("MMMM Do YYYY")}
               </p>
-              <span>|</span>
-              <p>Revenue: {Number(movieDetails?.revenue)}</p>
+              {params?.explore === "movie" && (
+                <>
+                  <span>|</span>
+                  <p>Revenue: {Number(movieDetails?.revenue)}</p>
+                </>
+              )}
             </div>
           </div>
           <div>
             <p>
-              <span className="text-white">Director:</span>:{" "}
+              <span className="text-white">Director : </span>
               {castData?.crew[0]?.name}
             </p>
           </div>
@@ -99,7 +107,7 @@ function Details() {
                 ?.filter((el) => el?.profile_path)
                 .map((starCast, index) => {
                   return (
-                    <div>
+                    <div key={starCast.id + "starCast" + index}>
                       <div>
                         <img
                           src={imageUrl + starCast?.profile_path}
