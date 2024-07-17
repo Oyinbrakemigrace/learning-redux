@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MobileNav from "./components/MobileNav";
@@ -32,7 +32,14 @@ function App() {
     }
   };
 
-
+ const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  /*The above provides the current location object, and
+  it triggers the scroll to top when the pathname changes.
+  This fixes the problem where scroll position is maintained across 
+  route changes*/
 
   useEffect(() => {
     fetchTrendingData();
